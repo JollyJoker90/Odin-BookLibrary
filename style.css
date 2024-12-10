@@ -1,50 +1,169 @@
 :root {
-    --primary: #ffa500;
-    --primary-content: #000000;
-    --primary-dark: #cc8400;
-    --primary-light: #ffb733;
+  --primary: #ffa500;
+  --primary-content: #000000;
+  --primary-dark: #cc8400;
+  --primary-light: #ffb733;
 
-    --secondary: #005aff;
-    --secondary-content: #ffffff;
-    --secondary-dark: #0048cc;
-    --secondary-light: #337bff;
+  --secondary: #005aff;
+  --secondary-content: #ffffff;
+  --secondary-dark: #0048cc;
+  --secondary-light: #337bff;
 
-    --background: #f1f0ef;
-    --foreground: #fbfbfb;
-    --border: #e2e0dd;
+  --background: #f1f0ef;
+  --foreground: #fbfbfb;
+  --border: #e2e0dd;
 
-    --copy: #292723;
-    --copy-light: #6e685e;
-    --copy-lighter: #958f84;
+  --copy: #292723;
+  --copy-light: #6e685e;
+  --copy-lighter: #958f84;
 
-    --success: #00ff00;
-    --warning: #ffff00;
-    --error: #ff0000;
-    --success-content: #000000;
-    --warning-content: #000000;
-    --error-content: #ffffff;
+  --success: #00ff00;
+  --warning: #ffff00;
+  --error: #ff0000;
+  --success-content: #000000;
+  --warning-content: #000000;
+  --error-content: #ffffff;
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 500;
+  src: url(res/Roboto/Roboto-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 100;
+  src: url(res/Roboto/Roboto-Light.ttf);
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: bold;
+  src: url(res/Roboto/Roboto-Bold.ttf);
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", "Arial";
 }
 
 body {
-    height: 100vh;
-    background-color: var(--primary);
+  height: 100vh;
+  background-color: var(--primary);
 }
 
 main {
-    width: 80vw;
-    height: 100vh;
-    background-color: var(--background);
-    margin: 0 auto;
-    /* border-radius: 40px; */
+  width: 80vw;
+  height: 100vh;
+  background-color: var(--background);
+  margin: 0 auto;
+  /* background-color: var(--copy-lighter); */
+  /* border-radius: 40px; */
 }
 
 h1 {
-    text-align: center;
-    padding-top: 24px;
+  text-align: center;
+  padding-top: 24px;
+}
+
+.btn {
+  background-color: var(--primary-light);
+  border: 2px solid var(--secondary);
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin-left: auto;
+  margin-right: 24px;
+  display: block;
+}
+
+.btn:hover {
+  background-color: var(--primary);
+  border: 2px solid var(--secondary-dark);
+}
+
+.books-container {
+  margin: 48px 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.card {
+  border: 3px solid var(--secondary);
+  border-radius: 12px;
+  padding: 12px;
+  background-color: var(--primary-light);
+  color: var(--primary-content);
+  display: flex;
+  flex-direction: column;
+
+  .book-title {
+    font-weight: 900;
+    margin-bottom: 12px;
+  }
+
+  .book-author {
+    font-weight: 100;
+    color: #454545;
+  }
+
+  .book-bot-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .book-status {
+    /* display: inline; */
+  }
+}
+
+#modal {
+  /* display: none; */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  .modal-container {
+    width: 60%;
+    height: 40%;
+    background-color: var(--secondary-light);
+    display: flex;
+    flex-direction: column;
+    margin: 5% auto;
+    border-radius: 20px;
+  }
+
+  img {
+    width: 48px;
+    padding: 12px;
+  }
+  .modal-header,
+  .modal-footer {
+    background-color: var(--primary);
+    height: 15%;
+    padding: 12px;
+  }
+  .modal-header {
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .modal-footer {
+    border-radius: 0 0 20px 20px;
+  }
+  .modal-content {
+    flex: 1;
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+  }
 }

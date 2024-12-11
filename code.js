@@ -4,7 +4,6 @@ const saveBook = document.querySelector(".save-book");
 const modalClose = document.querySelector(".modal-header > img");
 const modal = document.querySelector("#modal");
 const inputs = document.querySelectorAll("input");
-const deleteBookBtn = document.qu;
 const library = [];
 let dataIndex = 0;
 
@@ -19,7 +18,8 @@ modalClose.addEventListener("click", () => {
   displayBooks(library);
 });
 
-saveBook.addEventListener("click", () => {
+modal.addEventListener("submit", (e) => {
+  e.preventDefault();
   let title, author, pages, read;
   inputs.forEach((input) => {
     switch (input.id) {
@@ -32,13 +32,14 @@ saveBook.addEventListener("click", () => {
       case "pages":
         pages = input.value;
         break;
-      case "read":
-        read = input.value;
+      case "read-status":
+        read = input.checked;
         break;
     }
   });
   addBookToLibrary(title, author, pages, read);
-  console.log(title, author, pages, read);
+  modal.reset();
+  // console.log(title, author, pages, read);
 });
 
 function Book(title, author, pages, read = false) {
@@ -53,6 +54,14 @@ function Book(title, author, pages, read = false) {
     }`;
   };
 }
+// let test;
+const toggleReadStatus = (bookID) => {
+  // test = library.filter((book) => book.id === bookID)[0];
+  const currentBook = library.filter((book) => book.id === bookID)[0];
+  currentBook.read = !currentBook.read;
+  displayBooks(library);
+  console.log(currentBook);
+};
 
 const addBookToLibrary = (title, author, pages, read = false) => {
   let book = new Book(title, author, pages, read);
@@ -101,11 +110,23 @@ const displayBooks = (books) => {
 
     let bookPages = document.createElement("div");
     bookPages.classList.add("book-pages");
-    bookPages.textContent = book.pages;
+    bookPages.textContent = `${book.pages} pages`;
 
     let bookStatus = document.createElement("div");
-    bookStatus.classList.add("book-status");
-    bookStatus.textContent = book.read ? "read" : "not read";
+    const bookReadText = document.createElement("div");
+    const bookReadToggle = document.createElement("img");
+    book.read
+      ? bookReadToggle.setAttribute("src", "res/toggle-switch.svg")
+      : bookReadToggle.setAttribute("src", "res/toggle-switch-off-outline.svg");
+
+    bookStatus.classList.add("book-status-container");
+    bookReadText.textContent = book.read ? "read" : "not read";
+
+    bookReadToggle.addEventListener("click", () => {
+      toggleReadStatus(book.id);
+    });
+
+    bookStatus.append(bookReadText, bookReadToggle);
     topCon.append(bookTitle, bookDelete);
     botCon.append(bookPages, bookStatus);
     card.append(topCon, bookAuthor, botCon);
@@ -117,7 +138,7 @@ const displayBooks = (books) => {
 
 addBookToLibrary("The Babe", "J.R.R. Tolkien", "1234", true);
 addBookToLibrary("The Lord of the Rings", "J.R.R. Tolkien", "1234");
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", "1234");
+addBookToLibrary("The Hobbit", "J.R.R. Tolkien", "1234", true);
 addBookToLibrary("The Potter", "J.R.R. Tolkien", "1234");
 
 // console.log(container);
